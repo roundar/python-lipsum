@@ -26,7 +26,10 @@ def main():
 
         if a.decode:
             fr = from_lipsum(bytes.decode('utf-8'))
-            sys.stdout.write(bz2.decompress(fr) if a.compressed else fr)
+            if (sys.version_info > (3, 0)):
+                sys.stdout.buffer.write(bz2.decompress(fr) if a.compressed else fr)
+            else:
+                sys.stdout.write(bz2.decompress(fr) if a.compressed else fr)
         else:
             lip = to_lipsum(bz2.compress(bytes, 9) if a.compressed else bytes)
             if a.wrap: lip = os.linesep.join(textwrap.wrap(lip, a.wrap))

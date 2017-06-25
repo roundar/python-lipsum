@@ -4,7 +4,7 @@ Custom encoding for storing bytes as lorem ipsum text and a command line utility
 
 ## Install: 
 ```
-pip install https://github.com/roundar/python-lipsum
+pip install git+https://github.com/roundar/python-lipsum
 ```
 
 ## Lipsum Guidelines:
@@ -16,3 +16,33 @@ pip install https://github.com/roundar/python-lipsum
 ```
 4. All words not in this list are considered filler and ignored.
 5. ' ex.' denotes the end of a lipsum encoded string (subsequent characters are ignored).
+
+## Usage
+
+#### Commandline
+```bash
+~$ echo "This is a test!" | lipsum --compressed --wrap 80 > file.txt
+~$ lipsum --decode --compressed file.txt
+This is a test!
+~$ echo "All together now..." | lipsum | lipsum -d
+All together now...
+~$ cat file.txt
+Lorem ipsum dolor sit amet. Alveus mica reus subitus erga orno. Nocens suum hora
+voro defendo mire alui, voro rursus muto mihi arx suum quem. Caries neco neco
+vapulus sino urbs nego an neco bibo. Functus alii neco eris quaeso, neco usus
+alii nuper huic neco. Pessime neut neco genuit suum neco fama, xiphias neut creo
+minutum illi neut! Paratus arma ceno unus labores lima pono mihi. Seputus male
+mare veni niveus mens duco mica. Vespera mica tibi lente arca ante cras ex.
+```
+
+#### As module
+```python
+>>> import lipsum
+
+>>> example = 'This is a test!"
+>>> result = lipsum.to_lipsum(example)
+>>> print(result)
+Lorem ipsum dolor sit amet. Lactuca cras erga fero, sustuli flax neut vox fero flax forma neut quid. Pluvit neut dies quercus lama flax supra dies etsi. Prae ex.
+>>> print(lipsum.from_lipsum(result).encode())
+This is a test!
+```
